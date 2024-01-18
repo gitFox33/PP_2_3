@@ -7,7 +7,6 @@ import web.models.User;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("/people")
 public class UserController {
     private final UserService userService;
 
@@ -16,7 +15,7 @@ public class UserController {
     }
 
 
-    @GetMapping
+    @GetMapping("/")
     public String indexPage(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "index";
@@ -38,7 +37,7 @@ public class UserController {
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
         userService.createUser(user);
-        return "redirect:/people";
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/edit")
@@ -52,14 +51,14 @@ public class UserController {
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") Long id) {
         userService.editUser(id, user);
-        return "redirect:/people";
+        return "redirect:/";
     }
 
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam(value = "id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/people";
+        return "redirect:/";
     }
 }
 

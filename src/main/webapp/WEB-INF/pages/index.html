@@ -9,7 +9,8 @@
 
 
 <dif th:each="user : ${users}">
-    <a th:href="@{/people/{id}(id=${user.getId()})}"
+
+    <a th:href="@{/{id}(id=${user.getId()})}"
        th:text="${user.getName()} + ' ' + ${user.getLastName()} ">user</a>
 
 </dif>
@@ -17,7 +18,7 @@
 <br/>
 <hr/>
 
-<a href="/people/new">Create new user</a>
+<a href="/new">Create new user</a>
 
 </body>
 </html>

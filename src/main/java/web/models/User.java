@@ -1,8 +1,6 @@
 package web.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -12,14 +10,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+
     @Column(name = "name")
     private String name;
-    @Size(min = 2, max = 30, message = " Last Name should be between 2 and 30 characters")
+
     @Column(name = "lastName")
     private String lastName;
 
-    @Min(value = 0, message = " Age should be greater then 0")
+
     @Column(name = "age")
     private Integer age;
 
@@ -70,10 +68,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(age, user.age);
+        return id == user.id;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

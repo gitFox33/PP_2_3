@@ -1,6 +1,7 @@
 package web.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +19,11 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(value = "web")
 public class DBConfig {
     private final Environment env;
-
+    @Autowired
     public DBConfig(Environment env) {
         this.env = env;
     }
@@ -49,6 +49,7 @@ public class DBConfig {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         return properties;
     }
 
